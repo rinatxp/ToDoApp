@@ -1,0 +1,35 @@
+﻿@page
+@using DTO
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Task";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-page="Create">
+    <div class="form-group">
+        <label asp-for="ToDoTask.Name"></label>
+        <input class="form-control" asp-for="ToDoTask.Name" />
+        <span asp-validation-for="ToDoTask.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ToDoTask.Decription"></label>
+        <input class="form-control" asp-for="ToDoTask.Decription" />
+        <span asp-validation-for="ToDoTask.Decription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ToDoTask.Date"></label>
+        <input class="form-control" asp-for="ToDoTask.Date" />
+        <span asp-validation-for="ToDoTask.Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ToDoTask.Priority"></label>
+        <select asp-for="ToDoTask.Priority" asp-items="@Html.GetEnumSelectList<Priority>()"></select>
+        <span asp-validation-for="ToDoTask.Priority" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

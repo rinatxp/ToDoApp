@@ -1,0 +1,11 @@
+﻿@page
+@model GetModel
+@{
+    ViewData["Title"] = "Tasks";
+}
+<h1>@ViewData["Title"]</h1>
+
+@foreach(var task in Model.ToDoTasks)
+{
+    <p>Name - @task.Name, Description - @task.Decription, Date - @task.Date, Priority - @task.Priority</p>
+}

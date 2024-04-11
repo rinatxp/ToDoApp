@@ -1,0 +1,24 @@
+version: '3.4'
+
+services: 
+
+    frontend:
+        image: razorimage
+        build:
+            context: .
+            dockerfile: ./backend/Dockerfile
+        environment: 
+           - BackendUrl="http://localhost:8080/"
+        ports:
+           - "32000:8080"
+        depends_on: 
+           - backend
+    backend:
+        image: webapiimage
+        build: 
+            context: .
+            dockerfile: ./frontend/Dockerfile
+        environment: 
+           - ToDoTaskContext="Data Source=ToDoTaskContext-e384bc0a-bd1d-42c4-becd-48f3ee833935.db"
+        ports: 
+           - "32001:8080"
