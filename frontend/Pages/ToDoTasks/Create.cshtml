@@ -18,11 +18,6 @@
         <span asp-validation-for="ToDoTask.Decription" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ToDoTask.Date"></label>
-        <input class="form-control" asp-for="ToDoTask.Date" />
-        <span asp-validation-for="ToDoTask.Date" class="text-danger"></span>
-    </div>
-    <div class="form-group">
         <label asp-for="ToDoTask.Priority"></label>
         <select asp-for="ToDoTask.Priority" asp-items="@Html.GetEnumSelectList<Priority>()"></select>
         <span asp-validation-for="ToDoTask.Priority" class="text-danger"></span>

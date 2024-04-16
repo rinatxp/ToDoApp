@@ -18,9 +18,10 @@ namespace frontend.Pages.ToDoTasks
             _toDoTaskService = toDoTaskService;
         }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            ToDoTasks = await _toDoTaskService.GetToDoTaskListAsync();
+            ToDoTasks = await _toDoTaskService.GetToDoTaskListAsync() ?? new List<ToDoTask>();
+            return Page();
         }
     }
 }

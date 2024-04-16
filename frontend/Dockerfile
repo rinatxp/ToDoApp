@@ -1,27 +1,20 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-ENV BackendUrl="http://localhost:8080/"
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+
+WORKDIR /DTO
+COPY "DTO/DTO.csproj" .
+RUN dotnet restore
+COPY "DTO" .
+RUN dotnet publish -c release -o /app
+
 WORKDIR /src
-COPY ["frontend/frontend.csproj", "frontend/"]
-RUN dotnet restore "./frontend/frontend.csproj"
-COPY . .
-WORKDIR "/src/frontend"
-RUN dotnet build "./frontend.csproj" -c $BUILD_CONFIGURATION -o /app/build
+COPY frontend/frontend.csproj .
+RUN dotnet restore
+COPY frontend .
+RUN dotnet publish -c release -o /app
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./frontend.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "frontend.dll"]
+COPY --from=build /app .
+ENV BackendUrl="http://backend:5001/"
+
+ENTRYPOINT ["dotnet", "frontend.dll", "--urls", "http://*:5000"]

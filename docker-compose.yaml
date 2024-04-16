@@ -3,22 +3,46 @@ version: '3.4'
 services: 
 
     frontend:
-        image: razorimage
         build:
-            context: .
+            context: ./
+            dockerfile: ./frontend/Dockerfile
+        networks:
+           - dev
+        ports:
+           - "32000:5000"
+        depends_on:
+           - backend
+
+    backend:
+        build:
+            context: ./
             dockerfile: ./backend/Dockerfile
         environment: 
-           - BackendUrl="http://localhost:8080/"
+           - ConnectionStrings__DefaultConnection=User ID=postgres;Password=postgres;Server=postgres_db;Port=5432;Database=ToDoTasks;Pooling=true;
         ports:
-           - "32000:8080"
-        depends_on: 
-           - backend
-    backend:
-        image: webapiimage
-        build: 
-            context: .
-            dockerfile: ./frontend/Dockerfile
-        environment: 
-           - ToDoTaskContext="Data Source=ToDoTaskContext-e384bc0a-bd1d-42c4-becd-48f3ee833935.db"
-        ports: 
-           - "32001:8080"
+           - "32001:5001"
+        networks:
+           - dev
+        depends_on:
+           - postgres_db
+
+    postgres_db:
+        container_name: postgres_db
+        image: postgres:latest
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=ToDoTasks
+        ports:
+          - "5432:5432"
+        restart: always
+        volumes:
+          - app_data:/var/lib/postgresql/data
+        networks:
+          - dev
+volumes:
+  app_data:
+
+networks:
+  dev:
+  

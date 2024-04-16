@@ -19,7 +19,7 @@ namespace frontend.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync("/api/todotask");
+                var response = await _httpClient.GetAsync("/api/ToDoTask");
                 string content = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)

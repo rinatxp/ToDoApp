@@ -19,10 +19,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
-        {
-            return Ok(await _ctx.ToDoTasks.ToListAsync());
-        }
+        public async Task<IActionResult> GetAsync() => Ok(await _ctx.ToDoTasks.ToListAsync());
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)

@@ -15,9 +15,6 @@ namespace DTO
         [Required]
         [JsonPropertyName("priority")]
         public required Priority Priority { get; set; }
-        [Required]
-        [JsonPropertyName("date")]
-        public required DateTime Date { get; set; }
     }
 
     public enum Priority

@@ -7,7 +7,6 @@ builder.Services.AddSingleton<ToDoTaskService>();
 builder.Services.AddHttpClient<ToDoTaskService>(http =>
 {
     string url = builder.Configuration["BackendUrl"] ?? throw new KeyNotFoundException("Backend url not found");
-    http.BaseAddress = new Uri("http://localhost:5211/");
     http.BaseAddress = new Uri(url);
 });
 
@@ -21,6 +20,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseAuthorization();
 
 app.UseRouting();
 
