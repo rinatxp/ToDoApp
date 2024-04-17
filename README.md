@@ -5,4 +5,4 @@ To start enter in cmd:
 
 `docker-compose up`
 
-![image](https://github.com/rinatxp/ToDoApp/assets/58555309/08f2fa35-b17d-4faf-ae3f-626099263151)
+![image](https://github.com/rinatxp/ToDoApp/assets/58555309/d60a79e3-5177-45f8-b7d1-c8b4a7afa5cf)
